@@ -4,9 +4,9 @@ class MyHomePage extends StatelessWidget {
   final String name = 'Flori Andrea Ng'; // Name
   final String className = 'KKI'; // Class
   final List<ItemHomepage> items = [
-         ItemHomepage("View Product", Icons.mood),
-         ItemHomepage("Add Product", Icons.add),
-         ItemHomepage("Logout", Icons.logout),
+         ItemHomepage("View Product", Icons.mood, Colors.lightBlue),
+         ItemHomepage("Add Product", Icons.add, Colors.orange),
+         ItemHomepage("Logout", Icons.logout, Colors.pink),
      ];
   MyHomePage({super.key});
 
@@ -104,7 +104,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       // Specify the background color of the application theme.
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.iconColor,
       // Round the card border.
       borderRadius: BorderRadius.circular(12),
       
@@ -149,8 +149,9 @@ class ItemCard extends StatelessWidget {
 class ItemHomepage {
      final String name;
      final IconData icon;
+     final Color iconColor;
 
-     ItemHomepage(this.name, this.icon);
+     ItemHomepage(this.name, this.icon, this.iconColor);
  }
 
 class InfoCard extends StatelessWidget {
