@@ -43,7 +43,7 @@ import 'package:flutter/material.dart';
 ```
 After that, make a new file called menu.dart in the lib folder for implementing extra widgets separately into our app so that we don't overcrowd too many things in just one file. Then, import that dart file into main.dart. Along with that, we can hide the debug banner by setting debugShowCheckedModeBanner to false, then, we can configure the color palette of our app in the theme section. In here, I'm configuring the primary swatch to grey, then setting the secondary color to grey[900]. Make sure the useMaterial3 feature is checked true, to use the latest version of Google's Material Design.
 
-All in all, alter the main.dart to look like below.
+All in all, alter the main.dart to look like below. We change the code to call a MyHomePage() class that we can define in menu.dart.
 ```
 import 'package:flutter/material.dart';
 import 'package:cosmique/menu.dart';
@@ -86,7 +86,7 @@ class ItemHomepage {
 ```
 
 ### 4. Make the Item Card Widget
-Then we can make an ItemCard class which returns a Material widget that is clickable because it is wrapped in an Inkwell. When the inkwell, is tapped, a snack bar will appear to display a text that says which button has been pressed.
+Then, in menu.dart, we can make an ItemCard class which returns a Material widget that is clickable because it is wrapped in an Inkwell. When the inkwell, is tapped, a snack bar will appear to display a text that says which button has been pressed. The ItemCard's color depends on the iconColor constant of an item defined in ItemHomePage.
 ```
 
 class ItemCard extends StatelessWidget {
@@ -146,7 +146,7 @@ class ItemCard extends StatelessWidget {
 
 
 ### 5. Make the Info Card Widget
-We also make an InfoCard class which returns a Card widget and displays a title and a content text in a container.
+In menu.dart, we also make an InfoCard class which returns a Card widget and displays a title and a content text in a container. MediaQuery.of(context).size.width / 3.5, allows the width of the infocard to adjust to the size of the screen whihle also keeping enough spsace for 3 infoCards, because we plan to display them horizontally in a GridView later. 
 ```
 class InfoCard extends StatelessWidget {
   // Card information that displays the title and content.
@@ -184,7 +184,7 @@ class InfoCard extends StatelessWidget {
 ```
 
 ### 6. Displaying the Widgets
-Lastly, in menu.dart, we can display all the widgets we have made in a class MyHomePage, which returns a Scaffold. We pass the information that we want to display in our widgets and adjust how they are arranged in here. 
+Lastly, in menu.dart, we can display all the widgets we have made in a class MyHomePage, which returns a Scaffold. We pass the information that we want to display in our widgets and adjust how they are arranged in here. In the end, the application will display the npm, name and className strings in 3 separate InfoCards along with 3 buttons displayed in a gridview below it, which will be filled with content that has been declared in List<ItemHomepage> items. I declare each member of the list to have a different value for iconColor so that every itemCard will have a different color.
 ```
 import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
