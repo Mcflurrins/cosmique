@@ -27,15 +27,23 @@ The setState() method in Flutter is used within stateful widgets to trigger a UI
 The const keyword declares compile time constants, while the final keyword declares run time constants. This means that a variable declared with the const keyword is initialized at compile-time and is already assigned a value by the time the program runs, while a variable declared with the final keyword is initialized at run-time and can only be assigned for a single time after the program runs. For example, you can use final when you don't know what the value of a variable is during compile-time, like when you need to store data from an API in a variable, this only happens when your code is already running.
 
 ### Explain how you implemented the checklist above step-by-step.
+
+#### 1. Make the Flutter App
+First, we can create a new Flutter app by running the following commands in the terminal. This initializes a new directory with the name of the app (cosmique in this case), complete with the basic files needed to launch and run a demo of the app.
+
 ```
 flutter create cosmmique
 cd cosmique
 ```
 
+### 2. Configure main.dart
+We can import the following package into our main.html so that we can use Flutter widgets implementing Material Design in our application.
 ```
 import 'package:flutter/material.dart';
 ```
+After that, make a new file called menu.dart in the lib folder for implementing extra widgets separately into our app so that we don't overcrowd too many things in just one file. Then, import that dart file into main.dart. Along with that, we can hide the debug banner by setting debugShowCheckedModeBanner to false, then, we can configure the color palette of our app in the theme section. In here, I'm configuring the primary swatch to grey, then setting the secondary color to grey[900]. Make sure the useMaterial3 feature is checked true, to use the latest version of Google's Material Design.
 
+All in all, alter the main.dart to look like below.
 ```
 import 'package:flutter/material.dart';
 import 'package:cosmique/menu.dart';
@@ -64,6 +72,21 @@ class MyApp extends StatelessWidget {
   }
 ```
 
+### 3. Make the Item Home Page Widget
+
+In menu.dart, make a new ItemHomepage class to contain information to pass through to the other widgets we might want to make. This class will take on 3 constants, a string object, an iconData object, and a color object. The constructor ItemHomepage(this.name, this.icon, this.iconColor); is a special method used to create instances of the ItemHomepage class. The this keyword refers to the current instance of the class, allowing the constructor parameters (name, icon, and iconColor) to be assigned directly to the class's instance variables without needing to use explicit assignments like this.name = name;.
+```
+class ItemHomepage {
+     final String name;
+     final IconData icon;
+     final Color iconColor;
+
+     ItemHomepage(this.name, this.icon, this.iconColor);
+ }
+```
+
+### 4. Make the Item Card Widget
+Then we can make an ItemCard class which returns a Material widget that is clickable because it is wrapped in an Inkwell. When the inkwell, is tapped, a snack bar will appear to display a text that says which button has been pressed.
 ```
 
 class ItemCard extends StatelessWidget {
@@ -120,16 +143,10 @@ class ItemCard extends StatelessWidget {
 }
 ```
 
-```
-class ItemHomepage {
-     final String name;
-     final IconData icon;
-     final Color iconColor;
 
-     ItemHomepage(this.name, this.icon, this.iconColor);
- }
-```
 
+### 5. Make the Info Card Widget
+We also make an InfoCard class which returns a Card widget and displays a title and a content text in a container.
 ```
 class InfoCard extends StatelessWidget {
   // Card information that displays the title and content.
@@ -166,6 +183,8 @@ class InfoCard extends StatelessWidget {
 
 ```
 
+### 6. Displaying the Widgets
+Lastly, in menu.dart, we can display all the widgets we have made in a class MyHomePage, which returns a Scaffold. We pass the information that we want to display in our widgets and adjust how they are arranged in here. 
 ```
 import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
