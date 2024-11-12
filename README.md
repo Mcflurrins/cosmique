@@ -1,5 +1,56 @@
 # Flutter Assignment
 <details>  
+<summary>WEEK 7</summary>
+
+ ### What is the purpose of const in Flutter? Explain the advantages of using const in Flutter code. When should we use const, and when should it not be used?
+
+The const keyword in Flutter is used to define immutable widgets or objects at compile-time, meaning their values cannot change at runtime. A benefit of the const keyword is that it saves memory because Flutter uses the same memory space for all instances of a const object. Also, in the case of a rebuild, Flutter knows that the const is an object that shouldn't be changed, so it doesn't rebuild the const and this improves performance.
+
+ ### Explain and compare the usage of Column and Row in Flutter. Provide example implementations of each layout widget!
+
+ Column and Row are layout widgets that organize child widgets in vertical and horizontal directions, respectively. Column arranges children from top to bottom, making it ideal for stacking content vertically, while Row arranges widgets left to right, suited for side-by-side elements. Both widgets provide alignment options like mainAxisAlignment (primary axis) and crossAxisAlignment (secondary axis) for fine-tuning layouts, but they differ in their axis orientation. Column is for vertical layouts while Row is for horizontal layouts.
+
+ ### List the input elements you used on the form page in this assignment. Are there other Flutter input elements you didn’t use in this assignment? Explain!
+In this form, this is the input element I used:
+
+  TextFormField: This was used for entering the product name, description, and amount, with validations for required fields and ensuring the amount is a valid number.
+
+Some other common Flutter input elements I didn’t use in this assignment include:
+
+  Checkbox: Typically used for boolean options, where users select or deselect an item.
+  Radio: Allows selection of one option from a group of mutually exclusive options.
+  Switch: Similar to a Checkbox, but represented as a toggle button.
+  DropdownButtonFormField: Useful for selecting one option from a predefined list.
+  Slider: Lets users pick a value from a range, ideal for adjusting values like brightness or volume.
+
+ ### How do you set the theme within a Flutter application to ensure consistency? Did you implement a theme in your application?
+ In Flutter, themes can be set through ThemeData within the MaterialApp widget. This allows us to define global styles for text, buttons, and other components to make a cohesive look across the app. In my app, I implemented it like this within the MyApp class in main.dart:
+
+```
+       theme: ThemeData(
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        primary: Colors.black,
+        secondary: Colors.grey[900],
+      ),
+        useMaterial3: true,
+      ),
+```
+
+Here, I define the primary color to be black and the secondary color to be grey[900], and I also configure it so that we can use UI components from Material3.
+
+ ### How do you manage navigation in a multi-page Flutter application?
+ Navigation in Flutter is primarily managed using the Navigator class, which maintains a stack of pages (routes). Navigator.push() adds a new page to the stack, while Navigator.pop() removes the current page, allowing users to go back to their previous page. Alternatively, named routes can be defined for navigation using route names, enabling easier management of multiple pages. We can use the Navigator in Inkwells and GestureDetectors which can be found in components like BottomNavigationBar or Drawer.
+ For example, this is how Navigator is implemented in my app to redirect the user to the Product Entry Form Page. 
+ ```
+  Navigator.pushReplacement(context, 
+  // ignore: prefer_const_constructors
+  MaterialPageRoute(builder: (context) => ProductEntryFormPage(),
+  ));
+ ```
+
+</details>
+
+<details>  
 <summary>WEEK 6</summary>
 
 ### Explain what are stateless widgets and stateful widgets, and explain the difference between them.
