@@ -1,6 +1,6 @@
 # Flutter Assignment
 <details>  
-<summary>WEEK 7</summary>
+<summary>WEEK 7 - Assignment 8 </summary>
 
  ### What is the purpose of const in Flutter? Explain the advantages of using const in Flutter code. When should we use const, and when should it not be used?
 
@@ -51,7 +51,7 @@ Here, I define the primary color to be black and the secondary color to be grey[
 </details>
 
 <details>  
-<summary>WEEK 6</summary>
+<summary>WEEK 6 - Assignment 7</summary>
 
 ### Explain what are stateless widgets and stateful widgets, and explain the difference between them.
 Stateful widgets make up parts of the Flutter application's user interface which are more dynamic and can change its appearance in response to events triggered by user interactions or when it receives data. The widget's State is then stored in a State object to separate the widget's state from its appearance, and this State consists of values that can change. Example: Slider, Form. Stateless widgets on the other hand, are static and do not have changes in state. While they may change in appearance ever so slightly, they do not have a separately stored State object that allows them to be dynamic. Example: Icon, Text.
