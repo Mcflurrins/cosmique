@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cosmique/menu.dart';
+import 'package:cosmique/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'Cosmique',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-       primarySwatch: Colors.grey,
- ).copyWith(secondary: Colors.grey[900]),
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        primary: Colors.black,
+        secondary: Colors.grey[900],
+      ),
         useMaterial3: true,
       ),
       home: MyHomePage(),
