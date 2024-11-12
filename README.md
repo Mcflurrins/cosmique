@@ -15,13 +15,13 @@ In this form, this is the input element I used:
 
   TextFormField: This was used for entering the product name, description, and amount, with validations for required fields and ensuring the amount is a valid number.
 
-Some other common Flutter input elements I didn’t use in this assignment include:
+Some other common Flutter input elements I didn’t use in this assignment:
 
-  Checkbox: Typically used for boolean options, where users select or deselect an item.
-  Radio: Allows selection of one option from a group of mutually exclusive options.
-  Switch: Similar to a Checkbox, but represented as a toggle button.
-  DropdownButtonFormField: Useful for selecting one option from a predefined list.
-  Slider: Lets users pick a value from a range, ideal for adjusting values like brightness or volume.
+  1. Checkbox: Typically used for boolean options, where users select or deselect an item.
+  2. Radio: Allows selection of one option from a group of mutually exclusive options.
+  3. Switch: Similar to a Checkbox, but represented as a toggle button.
+  4. DropdownButtonFormField: Useful for selecting one option from a predefined list.
+  5. Slider: Lets users pick a value from a range, ideal for adjusting values like brightness or volume.
 
  ### How do you set the theme within a Flutter application to ensure consistency? Did you implement a theme in your application?
  In Flutter, themes can be set through ThemeData within the MaterialApp widget. This allows us to define global styles for text, buttons, and other components to make a cohesive look across the app. In my app, I implemented it like this within the MyApp class in main.dart:
