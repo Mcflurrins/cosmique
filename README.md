@@ -1,7 +1,7 @@
 # Flutter Assignment
 ## Flori Andrea Ng - 2306171713 - KKI
 <details>  
-<summary>WEEK 7 - Assignment 8</summary>
+<summary>WEEK 8 - Assignment 9</summary>
  
 ### Explain why we need to create a model to retrieve or send JSON data. Will an error occur if we don't create a model first?
 In Flutter, models help map JSON data into Dart objects, making it easier to work with structured, strongly-typed data. They simplify parsing JSON responses from APIs and converting data into JSON for outgoing requests. Without models, you'd have to handle the JSON manually, which can lead to mistakes and harder-to-maintain code. While the app might not crash without a model, you might encounter runtime issues like type mismatches or null values because of improper data handling.
@@ -19,8 +19,259 @@ Data transmission starts when the user inputs information into the app's UI widg
 The process begins when the user enters their credentials or registration details. These details are sent to the Django backend via a POST request using CookieRequest. Django validates the information, creates a session or token, and returns a cookie to the Flutter app. The app stores this cookie for future requests to protected routes. For logout, the app sends a request to the backend to clear the session, and the cookie is deleted locally as well. This ensures the session is terminated both on the server and in the app. Depending on the user’s authentication state, the app dynamically updates the UI, such as showing a menu for logged-in users or redirecting to a login screen for logged-out users.
 
 ### Explain how you implement the checklist above step by step! (not just following the tutorial).
+#### 1. Setting Up Authentication for our Flutter app
+First, I initialized a new 'authentication' app in my old Django project, and install django-cors-headers, then I register both of them to INSTALLED_APPS in the main project settings.py file. I also add corsheaders.middleware.CorsMiddleware to MIDDLEWARE in the main project settings.py file, and put 10.0.2.2 in its ALLOWED_HOSTS. I then put in functions for logging out, logging in and registering in views.py of the authentication folder, like so:
+```
+@csrf_exempt
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            auth_login(request, user)
+            # Successful login status.
+            return JsonResponse({
+                "username": user.username,
+                "status": True,
+                "message": "Login successful!"
+                # Add other data if you want to send data to Flutter.
+            }, status=200)
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Login failed, account disabled."
+            }, status=401)
 
+    else:
+        return JsonResponse({
+            "status": False,
+            "message": "Login failed, check email or password again."
+        }, status=401)
+    
+@csrf_exempt
+def register(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data['username']
+        password1 = data['password1']
+        password2 = data['password2']
 
+        # Check if the passwords match
+        if password1 != password2:
+            return JsonResponse({
+                "status": False,
+                "message": "Passwords do not match."
+            }, status=400)
+
+        # Check if the username is already taken
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({
+                "status": False,
+                "message": "Username already exists."
+            }, status=400)
+
+        # Create the new user
+        user = User.objects.create_user(username=username, password=password1)
+        user.save()
+
+        return JsonResponse({
+            "username": user.username,
+            "status": 'success',
+            "message": "User created successfully!"
+        }, status=200)
+
+    else:
+        return JsonResponse({
+            "status": False,
+            "message": "Invalid request method."
+        }, status=400)
+
+@csrf_exempt
+def logout(request):
+    username = request.user.username
+
+    try:
+        auth_logout(request)
+        return JsonResponse({
+            "username": username,
+            "status": True,
+            "message": "Logged out successfully!"
+        }, status=200)
+    except:
+        return JsonResponse({
+        "status": False,
+        "message": "Logout failed."
+        }, status=401)
+```
+I also route the new functions in urls.py of the authentication directory: 
+```
+from django.urls import path
+from authentication.views import login, register, logout
+
+app_name = 'authentication'
+
+urlpatterns = [
+    path('login/', login, name='login'),
+    path('register/', register, name='register'),
+    path('logout/', logout, name='logout'),
+]
+```
+I also add the path, "path('auth/', include('authentication.urls'))" to my urls.py in the project folder. Then, to integrate this into flutter, I installed the packages 'provider' and 'pbp_django_auth' and put this following code in main.dart after the Widget build line:
+```
+return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+```
+After that, I made the files login.dart and register.dart in the screens folder, and filled it with code exactly as it was given in the tutorial (I filled in the TO-DO's, but other than that I felt copy-pasting the entire code from those two files would be too lengthy and verbose to include in this answer). For logging out, I added this line to lib/widgets/product_card.dart, right after the Widget build line: 
+```
+final request = context.watch<CookieRequest>();
+```
+I changed the onTap() for the widget Inkwell into onTap: () async {...} as well so that the logout could be done asynchronously. In the end, it looks like this: 
+```
+child: InkWell(
+        onTap: () async {
+        ...
+          } else if (item.name == "Logout") {
+            final response = await request.logout(
+                "http://localhost:8000/auth/logout/");
+            String message = response["message"];
+            if (context.mounted) {
+              if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message Goodbye, $uname."),
+                ));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message),
+                  ),
+                );
+              }
+            }
+          }
+        },
+        ...
+```
+
+#### 2. Making a Custom Model in Flutter
+For this step, I used the Quicktype website. I opened the JSON endpoint in my django website, and copypasted the data into Quicktype like below, then moved the result to a new file in lib/models/product_entry.dart.
+![image](https://github.com/user-attachments/assets/844ed8c8-0d9f-46b3-b968-3301b6db15cd)
+Then, to add HTTP dependency to my application, I ran the command flutter pub add http in my terminal, and put in the line below to android/app/src/main/AndroidManifest.xml:
+```
+<uses-permission android:name="android.permission.INTERNET" />
+```
+I also made a new file called list_productentry.dart in my screens folder, which follows the code given in the tutorial, but I additionally made sure the field names follow the model we just implemented, especially in this part of its code:
+```
+...
+children: [
+            Text(
+              "${snapshot.data![index].fields.name}",
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text("${snapshot.data![index].fields.description}"),
+            const SizedBox(height: 10),
+            Text("${snapshot.data![index].fields.price}"),
+          ],
+...
+```
+I added this page to the left drawer by including the following ListTile in left_drawer.dart:
+```
+ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Product List'),
+            onTap: () {
+              // Route to the mood page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ProductEntryPage()),
+              );
+            },
+          ),
+```
+Similarly, I also modified the View Products button in product_card.html to go to ProductEntryPage().
+
+#### 3. Integrating the Flutter forms with Django Services
+First, I created a new function in main/views.py of my Django project.
+```
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        new_product = Product.objects.create(
+            user=request.user,
+            name=data["name"],
+            price=int(data["price"]),
+            description=data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+```
+I also route it in main/urls.py: 
+```
+path('create-flutter/', create_product_flutter, name='create_product_flutter'),
+```
+Then I added this line to lib/widgets/productentry_form.dart, right after the Widget build line: 
+```
+final request = context.watch<CookieRequest>();
+```
+I also changed the onPressed() button's code to the following: 
+```
+onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      // Send request to Django and wait for the response
+                      final response = await request.postJson(
+                        "http://localhost:8000/create-flutter/",
+                        jsonEncode(<String, String>{
+                          'name': _name,
+                          'price': _price.toString(),
+                          'description': _description,
+                        }),
+                      );
+                      if (context.mounted) {
+                        if (response['status'] == 'success') {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("New mood has saved successfully!"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text("Something went wrong, please try again."),
+                          ));
+                        }
+                      }
+                    }
+                  },
+```
+With that, the code for this week's assignment is complete.
 </details>  
 
 <details>  
