@@ -1,6 +1,7 @@
 # Flutter Assignment
+## Flori Andrea Ng - 2306171713 - KKI
 <details>  
-<summary>WEEK 7</summary>
+<summary>WEEK 7 - Assignment 8 </summary>
 
  ### What is the purpose of const in Flutter? Explain the advantages of using const in Flutter code. When should we use const, and when should it not be used?
 
@@ -15,13 +16,13 @@ In this form, this is the input element I used:
 
   TextFormField: This was used for entering the product name, description, and amount, with validations for required fields and ensuring the amount is a valid number.
 
-Some other common Flutter input elements I didn’t use in this assignment include:
+Some other common Flutter input elements I didn’t use in this assignment:
 
-  Checkbox: Typically used for boolean options, where users select or deselect an item.
-  Radio: Allows selection of one option from a group of mutually exclusive options.
-  Switch: Similar to a Checkbox, but represented as a toggle button.
-  DropdownButtonFormField: Useful for selecting one option from a predefined list.
-  Slider: Lets users pick a value from a range, ideal for adjusting values like brightness or volume.
+  1. Checkbox: Typically used for boolean options, where users select or deselect an item.
+  2. Radio: Allows selection of one option from a group of mutually exclusive options.
+  3. Switch: Similar to a Checkbox, but represented as a toggle button.
+  4. DropdownButtonFormField: Useful for selecting one option from a predefined list.
+  5. Slider: Lets users pick a value from a range, ideal for adjusting values like brightness or volume.
 
  ### How do you set the theme within a Flutter application to ensure consistency? Did you implement a theme in your application?
  In Flutter, themes can be set through ThemeData within the MaterialApp widget. This allows us to define global styles for text, buttons, and other components to make a cohesive look across the app. In my app, I implemented it like this within the MyApp class in main.dart:
@@ -51,7 +52,7 @@ Here, I define the primary color to be black and the secondary color to be grey[
 </details>
 
 <details>  
-<summary>WEEK 6</summary>
+<summary>WEEK 6 - Assignment 7</summary>
 
 ### Explain what are stateless widgets and stateful widgets, and explain the difference between them.
 Stateful widgets make up parts of the Flutter application's user interface which are more dynamic and can change its appearance in response to events triggered by user interactions or when it receives data. The widget's State is then stored in a State object to separate the widget's state from its appearance, and this State consists of values that can change. Example: Slider, Form. Stateless widgets on the other hand, are static and do not have changes in state. While they may change in appearance ever so slightly, they do not have a separately stored State object that allows them to be dynamic. Example: Icon, Text.
