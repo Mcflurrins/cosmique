@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cosmique/screens/menu.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart'; 
+import 'package:provider/provider.dart';
+
+import 'screens/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+    child: MaterialApp(
       title: 'Cosmique',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -21,7 +29,8 @@ class MyApp extends StatelessWidget {
       ),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: LoginPage(),
+    ),
     );
   }
 }
