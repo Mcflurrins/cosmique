@@ -1,6 +1,29 @@
 # Flutter Assignment
 ## Flori Andrea Ng - 2306171713 - KKI
 <details>  
+<summary>WEEK 7 - Assignment 8</summary>
+ 
+### Explain why we need to create a model to retrieve or send JSON data. Will an error occur if we don't create a model first?
+In Flutter, models help map JSON data into Dart objects, making it easier to work with structured, strongly-typed data. They simplify parsing JSON responses from APIs and converting data into JSON for outgoing requests. Without models, you'd have to handle the JSON manually, which can lead to mistakes and harder-to-maintain code. While the app might not crash without a model, you might encounter runtime issues like type mismatches or null values because of improper data handling.
+
+### Explain the function of the http library that you implemented for this task.
+The http library is used to make network requests to communicate with the backend. It provides easy-to-use methods for common actions like GET, POST, PUT, and DELETE, as well as handling headers and body content for requests. In this task, the http library allows the app to send user data to the server and retrieve JSON responses. This data is then processed and used in the app's UI.
+
+### Explain the function of CookieRequest and why it’s necessary to share the CookieRequest instance with all components in the Flutter app.
+CookieRequest handles session cookies, ensuring that user authentication is consistent across the app. By sharing a single CookieRequest instance, all components automatically include cookies in their HTTP requests. This avoids the need to manage session cookies manually and ensures a seamless experience when accessing authenticated routes or actions in the app. It’s key to maintaining secure and consistent user sessions.
+
+### Explain the mechanism of data transmission, from input to display in Flutter.
+Data transmission starts when the user inputs information into the app's UI widgets. This data is sent to the backend using HTTP requests, with tools like http or CookieRequest. The backend processes the request and responds with JSON data. The app parses this JSON into Dart objects, usually with the help of models. These objects are then used to update the app’s UI, often using tools like FutureBuilder or state management solutions like Provider to display the data asynchronously.
+
+### Explain the authentication mechanism from login, register, to logout. Start from inputting account data in Flutter to Django’s completion of the authentication process and display of the menu in Flutter.
+The process begins when the user enters their credentials or registration details. These details are sent to the Django backend via a POST request using CookieRequest. Django validates the information, creates a session or token, and returns a cookie to the Flutter app. The app stores this cookie for future requests to protected routes. For logout, the app sends a request to the backend to clear the session, and the cookie is deleted locally as well. This ensures the session is terminated both on the server and in the app. Depending on the user’s authentication state, the app dynamically updates the UI, such as showing a menu for logged-in users or redirecting to a login screen for logged-out users.
+
+### Explain how you implement the checklist above step by step! (not just following the tutorial).
+
+
+</details>  
+
+<details>  
 <summary>WEEK 7 - Assignment 8 </summary>
 
  ### What is the purpose of const in Flutter? Explain the advantages of using const in Flutter code. When should we use const, and when should it not be used?
