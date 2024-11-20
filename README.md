@@ -1,7 +1,7 @@
 # Flutter Assignment
 ## Flori Andrea Ng - 2306171713 - KKI
 <details>  
-<summary>WEEK 8 - Assignment 9</summary>
+<summary>Tutorial WEEK 8 - Assignment 9</summary>
  
 ### Explain why we need to create a model to retrieve or send JSON data. Will an error occur if we don't create a model first?
 In Flutter, models help map JSON data into Dart objects, making it easier to work with structured, strongly-typed data. They simplify parsing JSON responses from APIs and converting data into JSON for outgoing requests. Without models, you'd have to handle the JSON manually, which can lead to mistakes and code that is harder to maintain. While the app might not crash without a model,there might be runtime issues like type mismatches or null values because of improper data handling.
@@ -275,7 +275,7 @@ With that, the code for this week's assignment is complete.
 </details>  
 
 <details>  
-<summary>WEEK 7 - Assignment 8 </summary>
+<summary>Tutorial WEEK 7 - Assignment 8 </summary>
 
  ### What is the purpose of const in Flutter? Explain the advantages of using const in Flutter code. When should we use const, and when should it not be used?
 
@@ -326,7 +326,7 @@ Here, I define the primary color to be black and the secondary color to be grey[
 </details>
 
 <details>  
-<summary>WEEK 6 - Assignment 7</summary>
+<summary> Tutorial WEEK 6 - Assignment 7</summary>
 
 ### Explain what are stateless widgets and stateful widgets, and explain the difference between them.
 Stateful widgets make up parts of the Flutter application's user interface which are more dynamic and can change its appearance in response to events triggered by user interactions or when it receives data. The widget's State is then stored in a State object to separate the widget's state from its appearance, and this State consists of values that can change. Example: Slider, Form. Stateless widgets on the other hand, are static and do not have changes in state. While they may change in appearance ever so slightly, they do not have a separately stored State object that allows them to be dynamic. Example: Icon, Text.
