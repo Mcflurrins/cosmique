@@ -6,7 +6,6 @@ import '../screens/login.dart';
 import '../screens/productentry_form.dart';
 
 class ItemCard extends StatelessWidget {
-  // Display the card with an icon and name.
 
   final ItemHomepage item;
 
@@ -17,15 +16,11 @@ class ItemCard extends StatelessWidget {
     final request = context.watch<CookieRequest>();
 
     return Material(
-      // Specify the background color of the application theme.
       color: item.iconColor,
-      // Round the card border.
       borderRadius: BorderRadius.circular(12),
 
       child: InkWell(
-        // Action when the card is pressed.
         onTap: () async {
-          // Display the SnackBar message when the card is pressed.
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
@@ -44,7 +39,6 @@ class ItemCard extends StatelessWidget {
             );
           } else if (item.name == "Logout") {
             final response = await request.logout(
-                // TODO: Change the URL to your Django app's URL. Don't forget to add the trailing slash (/) if needed.
                 "http://localhost:8000/auth/logout/");
             String message = response["message"];
             if (context.mounted) {

@@ -4,10 +4,10 @@
 <summary>WEEK 8 - Assignment 9</summary>
  
 ### Explain why we need to create a model to retrieve or send JSON data. Will an error occur if we don't create a model first?
-In Flutter, models help map JSON data into Dart objects, making it easier to work with structured, strongly-typed data. They simplify parsing JSON responses from APIs and converting data into JSON for outgoing requests. Without models, you'd have to handle the JSON manually, which can lead to mistakes and harder-to-maintain code. While the app might not crash without a model, you might encounter runtime issues like type mismatches or null values because of improper data handling.
+In Flutter, models help map JSON data into Dart objects, making it easier to work with structured, strongly-typed data. They simplify parsing JSON responses from APIs and converting data into JSON for outgoing requests. Without models, you'd have to handle the JSON manually, which can lead to mistakes and code that is harder to maintain. While the app might not crash without a model,there might be runtime issues like type mismatches or null values because of improper data handling.
 
 ### Explain the function of the http library that you implemented for this task.
-The http library is used to make network requests to communicate with the backend. It provides easy-to-use methods for common actions like GET, POST, PUT, and DELETE, as well as handling headers and body content for requests. In this task, the http library allows the app to send user data to the server and retrieve JSON responses. This data is then processed and used in the app's UI.
+The http library is used to make network requests to communicate with the backend. It provides methods for common actions like GET, POST, PUT, and DELETE, as well as handling headers and body content for requests. In this task, the http library allows the app to send user data to the server and retrieve JSON responses. This data is then processed and used in the app's UI.
 
 ### Explain the function of CookieRequest and why it’s necessary to share the CookieRequest instance with all components in the Flutter app.
 CookieRequest handles session cookies, ensuring that user authentication is consistent across the app. By sharing a single CookieRequest instance, all components automatically include cookies in their HTTP requests. This avoids the need to manage session cookies manually and ensures a seamless experience when accessing authenticated routes or actions in the app. It’s key to maintaining secure and consistent user sessions.

@@ -11,7 +11,7 @@ class ProductEntryFormPage extends StatefulWidget {
   @override
   State<ProductEntryFormPage> createState() => _ProductEntryFormPageState();
 }
-
+//In Django an instance of the object is called just Product but here its ProductEntry
 class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
@@ -126,6 +126,7 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                       final response = await request.postJson(
                         "http://localhost:8000/create-flutter/",
                         jsonEncode(<String, String>{
+                          //the strings in quote here have to follow the fields in the json endpoint too or its gonna cause a doctype eror
                           'name': _name,
                           'price': _price.toString(),
                           'description': _description,

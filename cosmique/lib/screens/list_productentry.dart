@@ -13,6 +13,7 @@ class ProductEntryPage extends StatefulWidget {
 
 class _ProductEntryPageState extends State<ProductEntryPage> {
   Future<List<ProductEntry>> fetchProduct(CookieRequest request) async {
+    //we use localhost for this
     final response = await request.get('http://localhost:8000/json/');
     
     // Decoding the response into JSON
@@ -70,6 +71,7 @@ class _ProductEntryPageState extends State<ProductEntryPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      //change the fields to name description n price 
                       const SizedBox(height: 10),
                       Text("${snapshot.data![index].fields.description}"),
                       const SizedBox(height: 10),
